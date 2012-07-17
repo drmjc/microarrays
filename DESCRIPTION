@@ -1,0 +1,65 @@
+Package: microarrays
+Maintainer: Mark Cowley <m.cowley@garvan.org.au>
+License: GPL-2
+Title: A collection of microarray and genomic helper code.
+Author: Mark Cowley <m.cowley@garvan.org.au>
+Description: A collection of microarray and genomic helper code. Lots of code
+    for raw data and algorithm result file I/O, conversion, plots, and
+    summarisation code.
+Version: 1.0.0
+Date: 2012-07-17
+Depends:
+    R (>= 2.13.0),
+    methods,
+    Biobase,
+    pwbc (>= 2.0)
+Suggests:
+    testthat,
+    roxygen2,
+    org.Hs.eg.db,
+    illuminaHumanv4.db
+Imports:
+    AnnotationDbi,
+    Biobase,
+    Cairo,
+    genomics,
+    limma,
+    lumi,
+    mjcstats,
+    plyr,
+    qvalue,
+    stats
+Collate:
+    'average.pval.replicates-methods.R'
+    'average.replicates-methods.R'
+    'agilent.utils.R'
+    'barplot_lmFit.R'
+    'blatGene.R'
+    'calc.best.probe.topTable.R'
+    'collapse.rows.R'
+    'collapse.topTable.R'
+    'convert.partek2topTable.R'
+    'import.illumina.bgx.R'
+    'lowessMA.R'
+    'make.sample.info.R'
+    'mget.chain.R'
+    'mget.multi.R'
+    'mget2.R'
+    'plot_arrayWeights.R'
+    'plotMA.all.R'
+    'RankProd.utils.R'
+    'subset.eSet.R'
+    'subset.MArrayLM.R'
+    'summarise.dabg.R'
+    'toptable.utilities.R'
+    'barplot_tt.R'
+    'hist_pvals.pi0.R'
+    'merge.topTable.R'
+    'plot_cor.toptable.R'
+    'plot_genespringGX.lines.R'
+    'plot_lumi.QC.all.R'
+    'collapse-methods.R'
+    'reorder-methods.R'
+    'sort-methods.R'
+    'LumiBatch2gct.R'
+    'LumiBatch2GEOarchive.R'

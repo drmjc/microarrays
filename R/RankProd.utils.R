@@ -42,22 +42,6 @@ RankProd.signed.score <- function(rp, method=c("inv.log", "inverse")) {
 }
 
 
-
-# CAT plot comparing N RankProd analyses.
-#
-# All pair-wise combinations of CAT plots are made between each of the
-# supplied lists produced by RP or RPAdvance.
-# 
-# Parameters:
-# ...: at least 1 rankprod object
-# names: the names of each rankprod object. length >= number of \dots arguments
-#
-# Value:
-# none. a CAT plot is made
-#
-# Mark Cowley, 2008-12-10
-
-
 #' CAT plot comparing N RankProd analyses.
 #' 
 #' All pair-wise combinations of CAT plots are made between each of the
@@ -69,7 +53,7 @@ RankProd.signed.score <- function(rp, method=c("inv.log", "inverse")) {
 #' @return none. a CAT plot is made
 #' @author Mark Cowley, 2008-12-10
 #' @export
-CATplot.RankProd <- function(..., names=LETTERS) {
+catplot.RankProd <- function(..., names=LETTERS) {
 	par(mfrow=c(1,2))
 
 	RP <- list(...)
@@ -88,7 +72,7 @@ CATplot.RankProd <- function(..., names=LETTERS) {
 				par(mfg=c(1,direction))
 				idxA <- order(RP[[i]]$RPs[, direction], decreasing=FALSE)
 				idxB <- order(RP[[j]]$RPs[, direction], decreasing=FALSE)
-				plot.CAT( rownames(RP[[i]]$RPs)[idxA],
+				catplot( rownames(RP[[i]]$RPs)[idxA],
 						  rownames(RP[[j]]$RPs)[idxB],
 						  col=col, add=!new.plot, 
 						  main=c("UP-regulated", "DOWN-regulated")[direction] )

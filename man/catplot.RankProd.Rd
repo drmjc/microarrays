@@ -1,8 +1,8 @@
-\name{CATplot.RankProd}
-\alias{CATplot.RankProd}
+\name{catplot.RankProd}
+\alias{catplot.RankProd}
 \title{CAT plot comparing N RankProd analyses.}
 \usage{
-  CATplot.RankProd(..., names = LETTERS)
+  catplot.RankProd(..., names = LETTERS)
 }
 \arguments{
   \item{\dots}{at least 1 rankprod object}

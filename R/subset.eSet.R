@@ -1,9 +1,10 @@
 #' subset an eSet object
+#' 
 #' subset the rows (features) and columns(samples) within an eSet object.
 #' @note if you have a subclass of eSet, there may be slots that are not
 #' subsetted. For example LumiBatch objets can have an extra controlData
 #' slot.
-#' @method subset eSet
+#' 
 #' @param x an eSet
 #' @param subset logical expression indicating elements or rows to keep:
 #'          missing values are taken as \code{FALSE}.
@@ -14,6 +15,7 @@
 #' @author Mark Cowley, 2011-09-01
 #' @seealso \code{\link{subset.LumiBatch}}
 #' @export
+#' @method subset eSet
 #' @S3method subset eSet
 subset.eSet <- function(x, subset, select, drop = FALSE, ...) {
 	if( missing(subset) ) subset <- rep(TRUE, nrow(x))
@@ -39,7 +41,6 @@ subset.eSet <- function(x, subset, select, drop = FALSE, ...) {
 #' For instance, do all controlData slots have the first 2 columns being
 #' "?" and "ProbeID"?
 #' 
-#' @method subset LumiBatch
 #' @param x an LumiBatch
 #' @param subset logical expression indicating elements or rows to keep:
 #'          missing values are taken as \code{FALSE}.
@@ -49,6 +50,7 @@ subset.eSet <- function(x, subset, select, drop = FALSE, ...) {
 #' @return an LumiBatch with fewer rows and or columns
 #' @author Mark Cowley, 2011-09-01
 #' @export
+#' @method subset LumiBatch
 #' @S3method subset LumiBatch
 subset.LumiBatch <- function(x, subset, select, drop=FALSE, ...) {
 	if( missing(subset) ) subset <- rep(TRUE, nrow(x))
@@ -56,6 +58,9 @@ subset.LumiBatch <- function(x, subset, select, drop=FALSE, ...) {
 
 	# The [ and ] operators work well for eSet's already.
 	res <- x[which(subset), which(select)]
-	res@controlData <- subset(x@controlData,select=c(TRUE, TRUE, select))
+	if(!is.null(res@controlData)) {
+		res@controlData <- subset(x@controlData,select=c(TRUE, TRUE, select))
+	}
+	
 	res
 }

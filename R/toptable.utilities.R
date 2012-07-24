@@ -938,6 +938,7 @@ export.topTable <- function(tt, file, annot=NULL, fixFC=TRUE, Pcount=NULL, coeff
 #' @return a topTable object with numerical columns rounded.
 #' @author Mark Cowley
 #' @method round topTable
+#' @S3method round topTable
 round.topTable <- function(x, digits=4) {
 	if( "F" %in% colnames(x) ) {
 		# identify the numeric columns to the left of, and upto "F" which contain the contrasts

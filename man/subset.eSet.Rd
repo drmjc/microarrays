@@ -1,7 +1,6 @@
 \name{subset.eSet}
 \alias{subset.eSet}
-\title{subset an eSet object
-subset the rows (features) and columns(samples) within an eSet object.}
+\title{subset an eSet object}
 \usage{
   \method{subset}{eSet} (x, subset, select, drop = FALSE,
     ...)
@@ -23,8 +22,8 @@ subset the rows (features) and columns(samples) within an eSet object.}
   an eSet with fewer rows and or columns
 }
 \description{
-  subset an eSet object subset the rows (features) and
-  columns(samples) within an eSet object.
+  subset the rows (features) and columns(samples) within an
+  eSet object.
 }
 \note{
   if you have a subclass of eSet, there may be slots that

@@ -16,6 +16,9 @@
 #' 
 #' @importClassesFrom limma MArrayLM
 #' @S3method subset MArrayLM
+#' @aliases subset subset.MArrayLM
+#' @usage subset(x, subset, select, drop=FALSE, ...)
+#' 
 subset.MArrayLM <- function(x, subset, select, drop=FALSE, ...) {
 	
 	# convert subset into a logical

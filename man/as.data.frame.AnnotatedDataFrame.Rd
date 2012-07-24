@@ -1,9 +1,8 @@
 \name{as.data.frame.AnnotatedDataFrame}
-\alias{as.data.frame}
 \alias{as.data.frame.AnnotatedDataFrame}
 \title{Coerce to a Data Frame}
 \usage{
-  as.data.frame(x, ...)
+  \method{as.data.frame}{AnnotatedDataFrame} (x, ...)
 }
 \arguments{
   \item{x}{an AnnotatedDataFrame}

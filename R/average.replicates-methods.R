@@ -212,13 +212,14 @@ setMethod(
 		}
 		
 		# update the controlData slot
-		if( !is.null(x@controlData) ) {
-			res@controlData <- x@controlData
-			con.data  <- data.frame(
-				res@controlData[,1:2], 
-				average.replicates(res@controlData[,3:ncol(res@controlData)], classes)
+		if( !is.null(x@controlData) && ncol(x@controlData) == ncol(x)+2 ) {
+			cd <- data.frame(
+				x@controlData[,c(1:2)], 
+				average.replicates(x@controlData[,-c(1:2)], classes),
+				stringsAsFactors=FALSE, check.names=FALSE, check.rows=FALSE,
+				row.names=rownames(x@controlData)
 			)
-			res@controlData <- con.data
+			res@controlData <- cd
 		}
 		
 		# were detection pvalues defined?

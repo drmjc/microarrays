@@ -1,49 +1,11 @@
-#' sort
-#'
-#' @inheritParams base::sort
-#' @param FUN a sort function. if \code{\link{x}} is 2D or more, then this is applied to the 1st
-#' dimension (ie the rows)
-#' @return something
-#' @author Mark Cowley
-#' @exportMethod sort
-#' @rdname sort-methods
-#' @docType methods
-#'
-#' @rdname sort-methods
-#' @aliases sort,matrix-method
-setMethod(
-	"sort",
-	signature=signature("matrix"),
-	function(x, decreasing=FALSE, na.last=NA, FUN, ...) {
-		FUN <- match.fun(FUN)
-	    
-		val <- apply(x, 1, FUN, ...)
-		res <- x[order(val, decreasing=decreasing, na.last=na.last), ]
-
-		return(res)
-		
-	}
-)
-
-#' @rdname sort-methods
-#' @aliases sort,data.frame-method
-setMethod(
-	"sort",
-	signature=signature("data.frame"),
-	function(x, decreasing=FALSE, na.last=NA, FUN, ...) {
-		FUN <- match.fun(FUN)
-	    
-		cols <- colclasses(x) == "numeric"
-		res <- x
-		res[,cols] <- sort(as.matrix(x[,cols]), decreasing=decreasing, na.last=na.last, FUN=FUN, ...)
-
-		return(res)
-		
-	}
-)
-
+#' sort ExpressionSet and LumiBatch objects
+#' 
+#' sort the features in the exprs, and optionally calls slots
+#' using the S4 sort method defined in mjcbase
+#' 
 #' @rdname sort-methods
 #' @aliases sort,ExpressionSet-method
+#' @importMethodsFrom mjcbase sort
 #' @importClassesFrom Biobase ExpressionSet
 setMethod(
 	"sort",

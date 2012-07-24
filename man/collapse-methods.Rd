@@ -63,10 +63,13 @@
 	tmp <- collapse(x.averaged, FUN=var, decreasing=TRUE, na.last=FALSE, "SymbolReannotated")
 }
 
-require(lumi)
-data(example.lumi)
-featureData(example.lumi)$GeneSymbol <- c("TP53", "BRCA1", "BRCA2", "KRAS", "SMAD4")
-collapse(example.lumi, TRUE, NA, mean, "GeneSymbol")
+if( require(lumi) ) {
+  data(example.lumi)
+  ex <- example.lumi[1:20, ]
+  featureData(ex)$GeneSymbol <- c("TP53", "BRCA1", "BRCA2", "KRAS", "SMAD4")
+  collapsed <- collapse(ex, TRUE, NA, mean, "GeneSymbol")
+  collapsed
+}
 }
 \author{
   Mark Cowley

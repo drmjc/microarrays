@@ -61,10 +61,13 @@ setMethod(
 #' 	tmp <- collapse(x.averaged, FUN=var, decreasing=TRUE, na.last=FALSE, "SymbolReannotated")
 #' }
 #' 
-#' require(lumi)
-#' data(example.lumi)
-#' featureData(example.lumi)$GeneSymbol <- c("TP53", "BRCA1", "BRCA2", "KRAS", "SMAD4")
-#' collapse(example.lumi, TRUE, NA, mean, "GeneSymbol")
+#' if( require(lumi) ) {
+#'   data(example.lumi)
+#'   ex <- example.lumi[1:20, ]
+#'   featureData(ex)$GeneSymbol <- c("TP53", "BRCA1", "BRCA2", "KRAS", "SMAD4")
+#'   collapsed <- collapse(ex, TRUE, NA, mean, "GeneSymbol")
+#'   collapsed
+#' }
 #' 
 setMethod(
 	"collapse",
@@ -85,7 +88,7 @@ setMethod(
 		# 
 		tmp <- data.frame(fData(x)[,column], fData(x)$featureNames, stringsAsFactors=FALSE)
 		colnames(tmp) <- c(column, "PossibleProbes")
-		b <- collapse.rows(tmp, 1, 2, ", ")
+		b <- collapse.rows(tmp, 1, 2, ", ", 255)
 		fData(x) <- join(fData(x), b, column, "left")
 		fData(x)$PossibleProbes[is.na(fData(x)$PossibleProbes)] <- fData(x)$featureNames[is.na(fData(x)$PossibleProbes)]
 		fData(x)$featureNames <- NULL
@@ -95,7 +98,7 @@ setMethod(
 		# 
 		if( is.na(na.last) ) { # NOP
 			na.last <- NA
-			new.featureNames <- fData(x)[,column]
+			new.featureNames <- fData(x)[genes.idx, column]
 		}
 		else if( na.last ) {
 			# move NA probes down to the bottom of the table
@@ -116,46 +119,46 @@ setMethod(
 	}
 )
 
-# #' Collapse a GCT object
-# #' 
-# #' It's common for microarrays to have multiple probes per gene. They tend to
-# #' represent different isoforms.
-# #' Most geneset testing is done at the gene symbol level & ignores isoforms,
-# #' so you need to choose 1 probe
-# #' for each gene.
-# #' How?
-# #' 2 common approaches are to take the most abundant probe, or the most
-# #' variable probe, considered
-# #' across the cohort.\cr
-# #' I quite like doing t-stats on each gene & selecting the best performing
-# #' probe - ie the one with the largest t-stat in
-# #' either direction. Why? On the Affy 133+2 array, there can be lots of poor
-# #' probes for each gene. If 5 probes for a gene
-# #' have these t-stats: 1.2, 0.9, 0.1, -0.1, -10; then IMO, the one that scored
-# #' -10 is the best probe, since it had a really
-# #' strong t-stat score. thus method="maxabs" combined with a rnk.file (NB NOT
-# #' implemented right now.)
-# #' 
-# #' @param gct a GCT object
-# #' @param chip a CHIP object
-# #' @param rnk [optional] path to a rnk file (eg a t-statistic for each probe,
-# #'   where you want to select best probe from this score) NB currently UNUSED
-# #' @param method \dQuote{mean}, \dQuote{median} select the probe with highest 
-# #'   average/median level, or \dQuote{var}: select the probe with highest variance 
-# #'   across samples; \dQuote{maxabs} select the probe with the large absolute score in the rnk
-# #'   file (see details).
-# #' @param reverse [default=FALSE] reverse the ordering selected by method arg.
-# #'   so instead of most variable, it would be least variable.
-# #' @param filter Filter out (ie exclude) those probes that don't have a gene
-# #'   symbol (as determined by probes that have a gene symbol of \code{NA}, \dQuote{},
-# #'   \dQuote{---}, or \dQuote{NA}.)
-# #' 
-# #' @return A gct object with 1 row per gene symbol & now the \sQuote{probe ids} in
-# #'   column 1 are actually gene symbols.
-# #' @author Mark Cowley, 2011-02-27
-# #' @export
-# #' @rdname collapse-methods
-# #' @aliases collapse,GCT-method
+# # Collapse a GCT object
+# # 
+# # It's common for microarrays to have multiple probes per gene. They tend to
+# # represent different isoforms.
+# # Most geneset testing is done at the gene symbol level & ignores isoforms,
+# # so you need to choose 1 probe
+# # for each gene.
+# # How?
+# # 2 common approaches are to take the most abundant probe, or the most
+# # variable probe, considered
+# # across the cohort.\cr
+# # I quite like doing t-stats on each gene & selecting the best performing
+# # probe - ie the one with the largest t-stat in
+# # either direction. Why? On the Affy 133+2 array, there can be lots of poor
+# # probes for each gene. If 5 probes for a gene
+# # have these t-stats: 1.2, 0.9, 0.1, -0.1, -10; then IMO, the one that scored
+# # -10 is the best probe, since it had a really
+# # strong t-stat score. thus method="maxabs" combined with a rnk.file (NB NOT
+# # implemented right now.)
+# # 
+# # @param gct a GCT object
+# # @param chip a CHIP object
+# # @param rnk [optional] path to a rnk file (eg a t-statistic for each probe,
+# #   where you want to select best probe from this score) NB currently UNUSED
+# # @param method \dQuote{mean}, \dQuote{median} select the probe with highest 
+# #   average/median level, or \dQuote{var}: select the probe with highest variance 
+# #   across samples; \dQuote{maxabs} select the probe with the large absolute score in the rnk
+# #   file (see details).
+# # @param reverse [default=FALSE] reverse the ordering selected by method arg.
+# #   so instead of most variable, it would be least variable.
+# # @param filter Filter out (ie exclude) those probes that don't have a gene
+# #   symbol (as determined by probes that have a gene symbol of \code{NA}, \dQuote{},
+# #   \dQuote{---}, or \dQuote{NA}.)
+# # 
+# # @return A gct object with 1 row per gene symbol & now the \sQuote{probe ids} in
+# #   column 1 are actually gene symbols.
+# # @author Mark Cowley, 2011-02-27
+# # @export
+# # @rdname collapse-methods
+# # @aliases collapse,GCT-method
 # setMethod(
 # 	"collapse",
 # 	signature=signature("GCT"),

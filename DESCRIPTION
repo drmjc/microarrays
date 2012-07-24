@@ -7,27 +7,34 @@ Description: A collection of microarray and genomic helper code. Lots of code
     for raw data and algorithm result file I/O, conversion, plots, and
     summarisation code.
 Version: 1.0.0
-Date: 2012-07-17
+Date: 2012-07-24
 Depends:
     R (>= 2.13.0),
     methods,
     Biobase,
-    pwbc (>= 2.0)
+    mjcbase (>= 1.0.5),
+    mjcgraphics,
+    excelIO
 Suggests:
     testthat,
     roxygen2,
     org.Hs.eg.db,
-    illuminaHumanv4.db
+    illuminaHumanv4.db,
+    limma,
+    lumidat,
+    lumi
 Imports:
     AnnotationDbi,
     Biobase,
     Cairo,
+    excelIO,
     genomics,
     limma,
     lumi,
+    mjcaffy,
+    mjcbase,
     mjcstats,
     plyr,
-    qvalue,
     stats
 Collate:
     'average.pval.replicates-methods.R'
@@ -36,12 +43,10 @@ Collate:
     'barplot_lmFit.R'
     'blatGene.R'
     'calc.best.probe.topTable.R'
-    'collapse.rows.R'
     'collapse.topTable.R'
     'convert.partek2topTable.R'
     'import.illumina.bgx.R'
     'lowessMA.R'
-    'make.sample.info.R'
     'mget.chain.R'
     'mget.multi.R'
     'mget2.R'
@@ -59,7 +64,9 @@ Collate:
     'plot_genespringGX.lines.R'
     'plot_lumi.QC.all.R'
     'collapse-methods.R'
-    'reorder-methods.R'
     'sort-methods.R'
     'LumiBatch2gct.R'
     'LumiBatch2GEOarchive.R'
+    'normalizeQuantiles.list.R'
+    'microarrays-package.R'
+    'as.data.frame-methods.R'

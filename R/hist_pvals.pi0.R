@@ -17,7 +17,7 @@
 #' 
 #' @author Mark Cowley, 2008-10-02
 #' @export
-#' @importFrom qvalue qvalue
+#' @importFrom mjcstats qvalue2
 #' 
 hist_pvals_pi0 <- function(pvals, bins=20, main="", xlab="unadjusted P-values", annotate=TRUE, theme=c("red", "black")) {
 	theme <- theme[1]
@@ -34,7 +34,7 @@ hist_pvals_pi0 <- function(pvals, bins=20, main="", xlab="unadjusted P-values", 
 		
 	hist(pvals, breaks=breaks, main=main, xlab=xlab, col=col, border=border)
 	if( annotate ) {
-		q <- qvalue(na.rm(pvals)) # @TODO, in case of lots of NA's, shouldn't this force n=length(pvals)
+		q <- qvalue2(na.rm(pvals)) # @TODO, in case of lots of NA's, shouldn't this force n=length(pvals)
 		abline(h=length(pvals)/bins, lty="dashed")
 		abline(h=length(pvals)/bins*q$pi0, lty="dotted")
 		legend("topright", c("pi0 under H0", "estimated pi0"), lty=c("dashed", "dotted"), inset=0.02)

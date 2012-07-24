@@ -8,7 +8,11 @@
 #' - LumiBatch2res, which would need a LumiBatch2calls method
 #' 
 #' @param x a LumiBatch object
+#' @param description.column the description column within \code{fData(x)} to grab
+#'  the data for the resultant Description column in the GCT.
+#' 
 #' @return a GCT object. this is currently just a \code{data.frame} representation.
+#' 
 #' @author Mark Cowley, 2012-05-02
 #' @export
 #' @importClassesFrom lumi LumiBatch

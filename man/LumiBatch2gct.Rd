@@ -6,6 +6,10 @@
 }
 \arguments{
   \item{x}{a LumiBatch object}
+
+  \item{description.column}{the description column within
+  \code{fData(x)} to grab the data for the resultant
+  Description column in the GCT.}
 }
 \value{
   a GCT object. this is currently just a \code{data.frame}

@@ -9,6 +9,22 @@ arguments}
   plot_lumi_QC_all(x, dir, prefix,
     title.prefix = "Unnormalised", MA = TRUE, pairs = TRUE)
 }
+\arguments{
+  \item{x}{a LumiBatch object.}
+
+  \item{dir}{the directory to create the plot files}
+
+  \item{prefix}{prefix the plot filename prefix. eg
+  \dQuote{unnorm}, \dQuote{qnorm},
+  \dQuote{vst-transformed}}
+
+  \item{title.prefix}{default=\dQuote{Unnormalised}}
+
+  \item{MA}{logical: create MA plots vs the average array?}
+
+  \item{pairs}{logical: createa pairs plot? takes ages if
+  you have lots of arrays.}
+}
 \description{
   Perform all of the QC plots that are mentioned in the
   lumi vignette. It creates a density plot, boxplot, PCA,

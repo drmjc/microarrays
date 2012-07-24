@@ -8,6 +8,13 @@
 #' you'll get this Error:\cr
 #' \code{Error in density.default(newX[, i], ...) : 'x' contains missing values}
 #' 
+#' @param x a LumiBatch object.
+#' @param dir the directory to create the plot files
+#' @param prefix prefix the plot filename prefix. eg \dQuote{unnorm}, \dQuote{qnorm}, \dQuote{vst-transformed}
+#' @param title.prefix default=\dQuote{Unnormalised}
+#' @param MA logical: create MA plots vs the average array?
+#' @param pairs logical: createa pairs plot? takes ages if you have lots of arrays.
+#' 
 #' @author Mark Cowley, 2008-10-23
 #' @export
 #' @importFrom lumi plotSampleRelation MAplot pairs plot
@@ -33,14 +40,14 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	
 	message("Density plot")
 	N <- dim(x)[2]
-	f <- file.path(dir, p(prefix, ".density.png"))
+	f <- file.path(dir, paste0(prefix, ".density.png"))
 	png.SVGA(f)
 	par(las=1)
 	density(x, main=paste(title.prefix, "density plot"))
 	dev.off()
 	
 	message("Boxplot")
-	f <- file.path(dir, p(prefix, ".boxplot.png"))
+	f <- file.path(dir, paste0(prefix, ".boxplot.png"))
 	png.SVGA(f)
 	par(las=1)
 	boxplot(x, main=paste(title.prefix, "boxplot"))
@@ -49,7 +56,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	minsz <- max(1600, (N+1)*150) # the pairs plots have N+1 x N+1 plots in one.
 	if( pairs ) {
 		message("xy-pairs plot")
-		f <- file.path(dir, p(prefix, ".pairs.png"))
+		f <- file.path(dir, paste0(prefix, ".pairs.png"))
 		png(f, minsz, minsz)
 		par(las=1)
 		pairs(x, main=paste(title.prefix, "pairs plot"))
@@ -58,7 +65,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	
 	if( MA ) {
 		message("MA plot")
-		f <- file.path(dir, p(prefix, ".MAplot.png"))
+		f <- file.path(dir, paste0(prefix, ".MAplot.png"))
 		png(f, minsz, minsz)
 		par(las=1)
 		MAplot(x, main=paste(title.prefix, "MA plot"))
@@ -67,7 +74,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 
 	try({
 		message("CV plot")
-		f <- file.path(dir, p(prefix, ".CV.png"))
+		f <- file.path(dir, paste0(prefix, ".CV.png"))
 		png.SVGA(f)
 		par(las=1)
 		plot(x, what="cv")
@@ -75,21 +82,21 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	}, silent=TRUE)
 
 	message("PCA plot")
-	f <- file.path(dir, p(prefix, ".PCA.png"))
+	f <- file.path(dir, paste0(prefix, ".PCA.png"))
 	png.SVGA(f)
 	par(las=1)
 	plotSampleRelation(x, method="mds", color=rep(c("blue", "red"), each=3))
 	dev.off()
 
 	message("HCL plot")
-	f <- file.path(dir, p(prefix, ".HCL.png"))
+	f <- file.path(dir, paste0(prefix, ".HCL.png"))
 	png.SVGA(f)
 	par(las=1)
 	plot(x, what="sampleRelation")
 	dev.off()
 	
 	message("rank vs stdev plot")
-	f <- file.path(dir, p(prefix, ".rank-vs-stdev.png"))
+	f <- file.path(dir, paste0(prefix, ".rank-vs-stdev.png"))
 	png.SVGA(f)
 	par(las=1)
 	plot.rank.vs.sd(x, main=paste(title.prefix, "rank vs stdev"))

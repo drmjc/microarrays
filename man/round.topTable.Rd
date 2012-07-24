@@ -3,7 +3,7 @@
 \title{Round the numeric columns in a topTable
 Take a top table, and round the columns to \code{digits} places}
 \usage{
-  round.topTable(x, digits = 4)
+  \method{round}{topTable} (x, digits = 4)
 }
 \arguments{
   \item{x}{a topTable object}

@@ -45,7 +45,7 @@ collapse.topTable <- function(tt, probe2gene, toupper=FALSE, symbols.ignore.list
 
 	if( any(nchar(probe2gene[,2]) > 256) ) {
 		idx <- which(nchar(probe2gene[,2]) > 256)
-		probe2gene[idx,2] <- paste(str.left(probe2gene[idx,2], 252), "...")
+		probe2gene[idx,2] <- paste(str_left(probe2gene[idx,2], 252), "...")
 	}
 	
 	# this will be used to keep the table sorted properly.

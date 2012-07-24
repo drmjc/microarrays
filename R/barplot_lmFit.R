@@ -68,6 +68,7 @@
 #' barplot_lmFit(fit1, fit2, data=rma, calls=calls, tt=topTable, number=2)
 #' }
 #' @export
+#' @importFrom mjcaffy calls2colour
 barplot_lmFit <- function(
 	# lmFit objects
 	fit1, fit2=NULL,

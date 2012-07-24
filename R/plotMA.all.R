@@ -13,7 +13,7 @@
 #' 
 plotMA.all <- function(MA, dir, width=1024, height=768, ...) {
 	for(i in 1:ncol(MA)) {
-		f <- file.path(dir, p(colnames(MA)[i], ".png"))
+		f <- file.path(dir, paste(colnames(MA)[i], ".png", sep=""))
 		png(f, width, height)
 		plotMA(MA, i, ...)
 		dev.off()

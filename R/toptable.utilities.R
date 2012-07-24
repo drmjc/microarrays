@@ -36,7 +36,7 @@ summarise.topTable <- function(tt, p.thresh=c(0.05, 0.001, 0.0001), q.thresh=c(0
 
 		# P value summary
 		res <- as.data.frame(matrix(NA, 1,1+length(p.thresh)+length(q.thresh)+length(logFC.thresh)), stringsAsFactors=FALSE)
-		colnames(res) <- c( p("P<",p.thresh), p("q<", q.thresh), p("FC>", FC.thresh), "N" )
+		colnames(res) <- c( paste0("P<",p.thresh), paste0("q<", q.thresh), paste0("FC>", FC.thresh), "N" )
 		
 		res$N <- nrow(tt)
 		
@@ -142,9 +142,9 @@ summarise.topTable.updown <- function(tt, p.thresh=c(0.05, 0.001, 0.0001), q.thr
 	FC.thresh <- round(2^logFC.thresh,1)
 	
 	rn <- c()
-	if(!is.null(p.thresh)) rn <- c(rn,p("P < ",   p.thresh))
-	if(!is.null(q.thresh)) rn <- c(rn,p("FDR < ", q.thresh))
-	cn <- p("FC > ", FC.thresh)
+	if(!is.null(p.thresh)) rn <- c(rn,paste0("P < ",   p.thresh))
+	if(!is.null(q.thresh)) rn <- c(rn,paste0("FDR < ", q.thresh))
+	cn <- paste0("FC > ", FC.thresh)
 	res <- lapply(res, function(x) {dimnames(x) <- list(rn,cn); x})
 	res
 }
@@ -323,11 +323,11 @@ DEgenes.topTable <- function(tt, p.thresh=c(0.05, 0.001, 0.0001),
 		
 		NAMES <- NA
 		if( length(p.thresh) > 0 )
-			NAMES <- c(NAMES, p("P<", p.thresh))
+			NAMES <- c(NAMES, paste0("P<", p.thresh))
 		if( length(q.thresh) > 0 )
-			NAMES <- c(NAMES, p("q<", q.thresh))
+			NAMES <- c(NAMES, paste0("q<", q.thresh))
 		if( length(lfc.thresh) > 0 )
-			NAMES <- c(NAMES, p("FC>", fc.thresh))
+			NAMES <- c(NAMES, paste0("FC>", fc.thresh))
 		NAMES <- na.rm(NAMES)
 	
 		names(ids) <- NAMES
@@ -455,7 +455,6 @@ plot_venn2D_topTable <- function(tt1, tt2,
 #' @return none.
 #' @export
 #' @author Mark Cowley, 2011-08-02
-#'
 plot_venn3D_topTable <- function(tt1, tt2, tt3, p.thresh=c(0.05, 0.001, 0.0001), q.thresh=c(0.25, 0.10, 0.05), logFC.thresh=c(0.585, 1, 2), sizes=c(50, 100, 250), names=LETTERS[1:3]) {
 
 	pop <- unionN(tt1$ID, tt2$ID, tt3$ID)
@@ -806,6 +805,7 @@ topTable.fixFC <- function(tt, digits=4) {
 #' @param \dots additional arguments passed to write.xls
 #' @author Mark Cowley
 #' @export
+#' @importFrom excelIO write.xls
 export.topTable <- function(tt, file, annot=NULL, fixFC=TRUE, Pcount=NULL, coefficients=NULL, fit=NULL, digits=4, summary=TRUE, drop.Bstat=TRUE, adj.Pval.colname="FDR", ... ) {
 	# first calculate a summary of the toptable
 	if( summary ) {
@@ -937,7 +937,7 @@ export.topTable <- function(tt, file, annot=NULL, fixFC=TRUE, Pcount=NULL, coeff
 #' @param digits the number of digits to round to
 #' @return a topTable object with numerical columns rounded.
 #' @author Mark Cowley
-#' @S3method round topTable
+#' @method round topTable
 round.topTable <- function(x, digits=4) {
 	if( "F" %in% colnames(x) ) {
 		# identify the numeric columns to the left of, and upto "F" which contain the contrasts
@@ -966,6 +966,7 @@ round.topTable <- function(x, digits=4) {
 }
 # CHANGELOG
 # 2012-07-06: added @S3method
+# 2012-07-24: @method is what works
 
 #' Take a toptable (Fstat or t-stat) and make a label for each row.
 #' 

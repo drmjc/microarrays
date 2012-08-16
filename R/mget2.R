@@ -8,7 +8,8 @@
 #' is the oldest. \cr
 #' * keys in \code{x} are allowed to be \code{NA} (hint: \code{na.rm=FALSE})
 #' 
-#' @section TODO: provide more sorting options to choose the newest.
+#' @section TODO:
+#' provide more sorting options to choose the newest.
 #' 
 #' @param x a vector of keys, \code{NA}'s allowed.
 #' @param y an env, or AnnDbBimap, or ProbeAnnDbBimap

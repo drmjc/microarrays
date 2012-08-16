@@ -58,6 +58,7 @@ summarise.dabg <- function(file) {
 #' plot_dabg_vs_rma(dabg, rma)
 #' }
 #' @export
+#' @importFrom stats density
 plot_dabg_vs_rma <- function(dabg, rma, thresholds=c(0.05, 0.01, 0.001, 0.0001, 0.00001) ) {
 	dabg <- dabg[intersect(rownames(dabg), rownames(rma)),]
 	rma <- rma[intersect(rownames(dabg), rownames(rma)),]

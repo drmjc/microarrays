@@ -2,16 +2,17 @@
 \name{microarrays-package}
 \alias{microarrays}
 \alias{microarrays-package}
-\title{microarrays package title}
+\title{mjc's microarrays package}
 \description{
-  microarrays package description
+  Collection of code to facilitate microarray analysis.
+  This includes S4 methods to make dealing with Illumina
+  data easier, collapsing and subsetting ExpressionSet's,
+  averaging replicates, lowess, plotting etc\dots
 }
 \details{
   \tabular{ll}{ Package: \tab microarrays\cr Type: \tab
-  Package\cr Version: \tab
-  \Sexpr[stage=build]{packageDescription("microarrays")$Version}\cr
-  Date: \tab \Sexpr[stage=build]{format(Sys.time(),
-  "\%Y-\%m-\%d")}\cr License: \tab GPL-2\cr LazyLoad: \tab
+  Package\cr Version: \tab 1.0.1\cr Date: \tab
+  2012-07-31\cr License: \tab GPL-2\cr LazyLoad: \tab
   yes\cr }
 }
 \author{

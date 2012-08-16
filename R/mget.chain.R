@@ -1,4 +1,5 @@
 #' Lookup keys in a chain of 2 environment or AnnDbBimap objects
+#' 
 #' Sometimes you need to chain (or JOIN) a few mapping tables together
 #' in order to get the end result.
 #' For example, Using the annotation.db packages, if you need to go from

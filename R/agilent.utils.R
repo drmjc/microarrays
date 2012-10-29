@@ -445,9 +445,9 @@ agilent.miRNA.filter.GX10 <- function(data, min=1, species="mmu") {
 #' @return a new, larger Agilent miRNA object
 #' @export
 #' @author Mark Cowley, 2011-08-02
-#' @importFrom genomics mirsort
 agilent.miRNA.cbind <- function(x, y) {
-	probes <- mirsort( union(x$probeIDs, y$probeIDs) )
+	probes <- union(x$probeIDs, y$probeIDs)
+	if( require(genomics) ) probes <- mirsort( probes )
 	.same.order <- function(z, probes) {
 		missing.probes <- setdiff(probes, z$probeIDs)
 		tmp <- as.data.frame(matrix(NA, length(missing.probes), ncol(z$value)))

@@ -90,8 +90,9 @@ setMethod(
 		colnames(tmp) <- c(column, "PossibleProbes")
 		b <- collapse.rows(tmp, 1, 2, ", ", 255)
 		fData(x) <- join(fData(x), b, column, "left")
-		fData(x)$PossibleProbes[is.na(fData(x)$PossibleProbes)] <- fData(x)$featureNames[is.na(fData(x)$PossibleProbes)]
-		fData(x)$featureNames <- NULL
+		rownames(fData(x)) <- fData(x)$featureNames # the join kills the rownames
+		idx <- is.na(fData(x)$PossibleProbes)
+		fData(x)$PossibleProbes[idx] <- fData(x)$featureNames[idx]
 		
 		#
 		# handle the NA's, ie probes with no gene symbol.
@@ -112,12 +113,17 @@ setMethod(
 			new.featureNames <- ifelse(is.na(fData(x)[genes.idx,column]), featureNames(x)[genes.idx], fData(x)[genes.idx,column])
 		}
 		
+		# fData(x)$featureNames <- rownames(fData(x)) <- 
+		
 		res <- x[genes.idx, ]
 		featureNames(res) <- new.featureNames
 
 		return( res )
 	}
 )
+# CHANGELOG
+# 2012-08-15: bug fix, where identical(featureNames(featureData(x)), featureNames(x)) was FALSE, since
+# the join set the rownames of fData to 1:N. only revealed since I edited lumi to check validity after '['
 
 # # Collapse a GCT object
 # # 

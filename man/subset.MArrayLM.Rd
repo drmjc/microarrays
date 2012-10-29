@@ -1,7 +1,6 @@
 \name{subset.MArrayLM}
 \alias{subset.MArrayLM}
-\title{Subset an MArrayLM object.
-S3 method to subset the rows of an MArrayLM object, a la \code{\link[base]{subset}}}
+\title{Subset an MArrayLM object.}
 \usage{
   \method{subset}{MArrayLM} (x, subset, select,
     drop = FALSE, ...)
@@ -28,8 +27,8 @@ S3 method to subset the rows of an MArrayLM object, a la \code{\link[base]{subse
   an MArrayLM with less rows, and or columns.
 }
 \description{
-  Subset an MArrayLM object. S3 method to subset the rows
-  of an MArrayLM object, a la \code{\link[base]{subset}}
+  S3 method to subset the rows of an MArrayLM object, a la
+  \code{\link[base]{subset}}
 }
 \author{
   Mark Cowley, 2009-11-10

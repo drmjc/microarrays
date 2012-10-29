@@ -1,4 +1,5 @@
 #' Subset an MArrayLM object.
+#'
 #' S3 method to subset the rows of an MArrayLM object, a la \code{\link[base]{subset}}
 #' 
 #' @param x an MArrayLM object to be subsetted.

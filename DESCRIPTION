@@ -6,41 +6,34 @@ Author: Mark Cowley <m.cowley@garvan.org.au>
 Description: A collection of microarray and genomic helper code. Lots of code
     for raw data and algorithm result file I/O, conversion, plots, and
     summarisation code.
-Version: 1.0.0
-Date: 2012-07-24
+Version: 1.0.1
+Date: 2012-10-20
 Depends:
-    R (>= 2.13.0),
+    R (>= 2.12.0),
     methods,
-    Biobase,
     mjcbase (>= 1.0.5),
-    mjcgraphics,
-    excelIO
+    mjcgraphics (>= 1.0.0),
+    excelIO (>= 1.0.0)
+Imports:
+    AnnotationDbi,
+    Biobase,
+    limma,
+    lumi,
+    mjcbase (>= 1.0.0),
+    mjcstats (>= 1.0.2),
+    plyr,
+    stats
 Suggests:
     testthat,
     roxygen2,
     org.Hs.eg.db,
     illuminaHumanv4.db,
-    limma,
     lumidat,
-    lumi
-Imports:
-    AnnotationDbi,
-    Biobase,
-    Cairo,
-    excelIO,
-    genomics,
-    limma,
-    lumi,
-    mjcaffy,
-    mjcbase,
-    mjcstats,
-    plyr,
-    stats
+    genomics
 Collate:
     'average.pval.replicates-methods.R'
     'average.replicates-methods.R'
     'agilent.utils.R'
-    'barplot_lmFit.R'
     'blatGene.R'
     'calc.best.probe.topTable.R'
     'collapse.topTable.R'
@@ -70,3 +63,5 @@ Collate:
     'normalizeQuantiles.list.R'
     'microarrays-package.R'
     'as.data.frame-methods.R'
+    'LumiBatch-methods.R'
+    'export.gsea.rnk.RankProd.R'

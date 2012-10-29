@@ -22,8 +22,8 @@ arguments}
 
   \item{MA}{logical: create MA plots vs the average array?}
 
-  \item{pairs}{logical: createa pairs plot? takes ages if
-  you have lots of arrays.}
+  \item{pairs}{logical: create a pairs plot? WARNING, this
+  takes ages if you have lots of arrays.}
 }
 \description{
   Perform all of the QC plots that are mentioned in the
@@ -44,8 +44,7 @@ arguments}
 dir.create("QC/01.unnorm")
 plot_lumi_QC_all(x.raw, "QC/01.unnorm/", "raw", "Unnormalised")
 dir.create("QC/02.transformed")
-plot_lumi_QC_all(x.transformed, "QC/02.transformed/", "vst", "VST
-Transformed")
+plot_lumi_QC_all(x.transformed, "QC/02.transformed/", "vst", "VST Transformed")
 dir.create("QC/03.rsn")
 plot_lumi_QC_all(x.norm.rsn, "QC/03.rsn/", "rsn", "RSN Normalised")
 }

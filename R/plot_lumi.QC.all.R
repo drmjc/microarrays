@@ -13,11 +13,12 @@
 #' @param prefix prefix the plot filename prefix. eg \dQuote{unnorm}, \dQuote{qnorm}, \dQuote{vst-transformed}
 #' @param title.prefix default=\dQuote{Unnormalised}
 #' @param MA logical: create MA plots vs the average array?
-#' @param pairs logical: createa pairs plot? takes ages if you have lots of arrays.
+#' @param pairs logical: create a pairs plot? WARNING, this takes ages if you have lots of arrays.
 #' 
 #' @author Mark Cowley, 2008-10-23
 #' @export
-#' @importFrom lumi plotSampleRelation MAplot pairs plot
+#' @importFrom lumi plotSampleRelation
+#' @importMethodsFrom lumi boxplot pairs MAplot plot
 #' @importClassesFrom lumi LumiBatch
 #' 
 #' @examples
@@ -25,8 +26,7 @@
 #' dir.create("QC/01.unnorm")
 #' plot_lumi_QC_all(x.raw, "QC/01.unnorm/", "raw", "Unnormalised")
 #' dir.create("QC/02.transformed")
-#' plot_lumi_QC_all(x.transformed, "QC/02.transformed/", "vst", "VST
-#' Transformed")
+#' plot_lumi_QC_all(x.transformed, "QC/02.transformed/", "vst", "VST Transformed")
 #' dir.create("QC/03.rsn")
 #' plot_lumi_QC_all(x.norm.rsn, "QC/03.rsn/", "rsn", "RSN Normalised")
 #' }
@@ -43,14 +43,14 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	f <- file.path(dir, paste0(prefix, ".density.png"))
 	png.SVGA(f)
 	par(las=1)
-	density(x, main=paste(title.prefix, "density plot"))
+	lumi::density(x, main=paste(title.prefix, "density plot"))
 	dev.off()
 	
 	message("Boxplot")
 	f <- file.path(dir, paste0(prefix, ".boxplot.png"))
 	png.SVGA(f)
 	par(las=1)
-	boxplot(x, main=paste(title.prefix, "boxplot"))
+	lumi::boxplot(x, main=paste(title.prefix, "boxplot"))
 	dev.off()
 	
 	minsz <- max(1600, (N+1)*150) # the pairs plots have N+1 x N+1 plots in one.
@@ -59,7 +59,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 		f <- file.path(dir, paste0(prefix, ".pairs.png"))
 		png(f, minsz, minsz)
 		par(las=1)
-		pairs(x, main=paste(title.prefix, "pairs plot"))
+		lumi::pairs(x, main=paste(title.prefix, "pairs plot"))
 		dev.off()
 	}
 	
@@ -68,7 +68,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 		f <- file.path(dir, paste0(prefix, ".MAplot.png"))
 		png(f, minsz, minsz)
 		par(las=1)
-		MAplot(x, main=paste(title.prefix, "MA plot"))
+		lumi::MAplot(x, main=paste(title.prefix, "MA plot"))
 		dev.off()
 	}
 
@@ -77,7 +77,7 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 		f <- file.path(dir, paste0(prefix, ".CV.png"))
 		png.SVGA(f)
 		par(las=1)
-		plot(x, what="cv")
+		lumi::plot(x, what="cv")
 		dev.off()
 	}, silent=TRUE)
 
@@ -85,21 +85,21 @@ plot_lumi_QC_all <- function(x, dir, prefix, title.prefix="Unnormalised", MA=TRU
 	f <- file.path(dir, paste0(prefix, ".PCA.png"))
 	png.SVGA(f)
 	par(las=1)
-	plotSampleRelation(x, method="mds", color=rep(c("blue", "red"), each=3))
+	lumi::plotSampleRelation(x, method="mds", color=rep(c("blue", "red"), each=3))
 	dev.off()
 
 	message("HCL plot")
 	f <- file.path(dir, paste0(prefix, ".HCL.png"))
 	png.SVGA(f)
 	par(las=1)
-	plot(x, what="sampleRelation")
+	lumi::plot(x, what="sampleRelation")
 	dev.off()
 	
 	message("rank vs stdev plot")
 	f <- file.path(dir, paste0(prefix, ".rank-vs-stdev.png"))
 	png.SVGA(f)
 	par(las=1)
-	plot.rank.vs.sd(x, main=paste(title.prefix, "rank vs stdev"))
+	plot_rank_vs_sd(exprs(x), main=paste(title.prefix, "rank vs stdev"))
 	dev.off()
 	
 }

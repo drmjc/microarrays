@@ -11,12 +11,11 @@
 #' dabg <- summarise.dabg("./dabg.summary.txt")
 #' }
 #' @export
-#' @importFrom Cairo CairoPNG
 summarise.dabg <- function(file) {
 	dabg <- read.delim(file, as.is=TRUE, comment.char="#", row.names=1)
 	colnames(dabg) <- sub(".CEL", "", colnames(dabg))
 	# DABG BOXPLOTs
-	CairoPNG(file.path(dirname(file), "dabg.summary.png"), 1400, 800)
+	png(file.path(dirname(file), "dabg.summary.png"), 1400, 800)
 	par(mfrow=c(1,2))
 	boxplot(dabg, main="Boxplots of DABG", ylab="P-value")
 	boxplot(dabg + 1e-06, log="y", main="Boxplots of DABG", ylab="P-value (log scale)")

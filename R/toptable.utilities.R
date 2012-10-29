@@ -805,7 +805,6 @@ topTable.fixFC <- function(tt, digits=4) {
 #' @param \dots additional arguments passed to write.xls
 #' @author Mark Cowley
 #' @export
-#' @importFrom excelIO write.xls
 export.topTable <- function(tt, file, annot=NULL, fixFC=TRUE, Pcount=NULL, coefficients=NULL, fit=NULL, digits=4, summary=TRUE, drop.Bstat=TRUE, adj.Pval.colname="FDR", ... ) {
 	# first calculate a summary of the toptable
 	if( summary ) {

@@ -46,7 +46,7 @@
 #' @export
 #' @importClassesFrom lumi LumiBatch
 #' @importFrom Biobase exprs featureNames sampleNames
-#' @importFrom lumi detection
+#' @importMethodsFrom lumi detection
 #' @examples
 #' \dontrun{
 #' LumiBatch2GEOarchive(x.raw, "geosub-unnorm.xls")

@@ -1,9 +1,10 @@
 \name{subset.LumiBatch}
+\alias{subset}
+\alias{subset,LumiBatch-method}
 \alias{subset.LumiBatch}
 \title{subset a LumiBatch object}
 \usage{
-  \method{subset}{LumiBatch} (x, subset, select,
-    drop = FALSE, ...)
+  \method{subset}{LumiBatch} (x, subset, select, ...)
 }
 \arguments{
   \item{x}{an LumiBatch}
@@ -13,8 +14,6 @@
 
   \item{select}{logical expression, indicating columns to
   select from a \code{data.frame}.}
-
-  \item{drop}{logical: ignored}
 
   \item{\dots}{ignored}
 }

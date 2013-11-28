@@ -6,8 +6,8 @@ Author: Mark Cowley <m.cowley@garvan.org.au>
 Description: A collection of microarray and genomic helper code. Lots of code
     for raw data and algorithm result file I/O, conversion, plots, and
     summarisation code.
-Version: 1.0.1
-Date: 2012-10-20
+Version: 1.0.2
+Date: 2013-11-28
 Depends:
     R (>= 2.12.0),
     methods,
@@ -19,7 +19,9 @@ Imports:
     Biobase,
     limma,
     lumi,
-    mjcbase (>= 1.0.0),
+    mjcaffy,
+    mjcbase,
+    mjcgraphics,
     mjcstats (>= 1.0.2),
     plyr,
     stats
@@ -65,3 +67,8 @@ Collate:
     'as.data.frame-methods.R'
     'LumiBatch-methods.R'
     'export.gsea.rnk.RankProd.R'
+    'plot_exprs_vs_detection-methods.R'
+    'dotplot-methods.R'
+    'barplot_lmFit.R'
+    'DetectionCalls.R'
+    'ExtractionSoftware.R'

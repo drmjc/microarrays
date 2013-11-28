@@ -6,13 +6,14 @@
     round.digits = 5)
 }
 \arguments{
-  \item{x}{a \code{LumiBatch} object}
+  \item{x}{a \code{LumiBatch} object; or}
 
-  \item{file}{the path to the output file. it should end in
-  tsv or txt}
+  \item{file}{the path to a GenomeStudio TXT file. it
+  should end in tsv or txt.}
 
-  \item{ids}{an optional vector of probe ID's. Default=NULL
-  to use the featureNames within \code{x}. See Details.}
+  \item{ids}{an optional vector of probe ID's.
+  Default=\code{NULL} to use the featureNames within
+  \code{x}. See Details.}
 
   \item{round.digits}{The number of digits to round the
   data to. No point exporting anything much more precise
@@ -57,15 +58,14 @@
 }
 
 \section{ids argument}{
-  If you'd like to reorder the output rows, set the
-  \code{ids} argument to be a character vector of probe
-  ID's. You can also use \code{ids} to specify a subset of
-  probes to report. In addition, \code{ids} may contain
-  probes that are not present in \code{featureNames(x)}; in
-  this case these probes will be in effect added to
-  \code{x}, and exported as \dQuote{null}'s. Yes, this is a
-  bit of a hack, because it's hard to add missing probes to
-  a LumiBatch object retrospectively.
+  If you'd like to reorder, or subset the rows in the
+  output, set the \code{ids} argument to be a character
+  vector of probe ID's. In addition, \code{ids} may contain
+  probes that are not present in \code{featureNames(x)} --
+  in this case these probes will be in effect added to
+  \code{x}, and exported as \dQuote{null}'s. This is a bit
+  of a hack, because it's hard to add missing probes to a
+  \code{LumiBatch} object retrospectively.
 }
 \examples{
 \dontrun{

@@ -59,8 +59,9 @@ collapse.topTable <- function(tt, probe2gene, toupper=FALSE, symbols.ignore.list
 	tt.genes <- merge(tt, best.probe, by.x="ID", by.y="ID", all.x=FALSE, all.y=TRUE, sort=FALSE)
 	tt.genes <- move.column(tt.genes, "Gene.Symbol", 2)
 
-	n.genes <- sum(tt.genes$Gene.Symbol != "---")
-	n.extra <- sum(tt.genes$Gene.Symbol == "---")
+	# 2013-03-21: update to be more specific
+	n.genes <- sum(!tt.genes$Gene.Symbol %in% symbols.ignore.list & !is.na(tt.genes$Gene.Symbol) & !is.null(tt.genes$Gene.Symbol))
+	n.extra <- sum( tt.genes$Gene.Symbol %in% symbols.ignore.list |  is.na(tt.genes$Gene.Symbol) |  is.null(tt.genes$Gene.Symbol))
 
 	res <- tt.genes
 	res <- res[order(as.numeric(res$old_order)), ]

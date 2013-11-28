@@ -23,20 +23,19 @@
 #' a \code{LumiBatch} object and writes an xls file.
 #' 
 #' @section ids argument:
-#' If you'd like to reorder the output rows, set the \code{ids}
-#' argument to be a character vector of probe ID's. You can also use \code{ids} to
-#' specify a subset of probes to report. In addition, \code{ids} may contain probes
-#' that are not present in \code{featureNames(x)}; in this case these probes
+#' If you'd like to reorder, or subset the rows in the output, set the \code{ids}
+#' argument to be a character vector of probe ID's. In addition, \code{ids} may contain probes
+#' that are not present in \code{featureNames(x)} -- in this case these probes
 #' will be in effect added to \code{x}, and exported as \dQuote{null}'s.
-#' Yes, this is a bit of a hack, because it's hard to add missing probes to
-#' a LumiBatch object retrospectively.
+#' This is a bit of a hack, because it's hard to add missing probes to
+#' a \code{LumiBatch} object retrospectively.
 #' 
 #' @note This shold work for \code{ExpressionSet} objects, but that's currently
 #' untested.
 #' 
-#' @param x a \code{LumiBatch} object
-#' @param file the path to the output file. it should end in tsv or txt
-#' @param ids an optional vector of probe ID's. Default=NULL to use the
+#' @param x a \code{LumiBatch} object; or
+#' @param file the path to a GenomeStudio TXT file. it should end in tsv or txt.
+#' @param ids an optional vector of probe ID's. Default=\code{NULL} to use the
 #'   featureNames within \code{x}. See Details.
 #' @param round.digits The number of digits to round the data to. No point
 #'   exporting anything much more precise than 4-5 decimal places. Set to
@@ -55,6 +54,21 @@
 LumiBatch2GEOarchive <- function(x, file, ids=NULL, round.digits=5) {
 	inherits(x, "LumiBatch") || stop("x must be a LumiBatch object")
 	!missing(file) && is.character(file) && length(file) == 1 || stop("file must be the path to an output file")
+	
+	res <- .LumiBatch2GEOarchive_df(x, ids=ids, round.digits=round.digits)
+	
+	# write table
+	write.table(res, file, quote=FALSE, sep="\t", row.names=FALSE, col.names=TRUE, na="null")
+}
+
+#' @examples
+#' \dontrun{
+#' f <- file.path(path.package("microarrays"), "tests", "sample_GenomeStudio_output_9x3.txt")
+#' x <- lumiR(f, qc=F)
+#' .LumiBatch2GEOarchive_df(x)
+#' }
+.LumiBatch2GEOarchive_df <- function(x, ids=NULL, round.digits=5) {
+	inherits(x, "LumiBatch") || stop("x must be a LumiBatch object")
 	
 	if( is.null(ids) ) ids <- featureNames(x)
 	else if( any(duplicated(ids)) ) stop("ids can't contain duplicates")
@@ -94,6 +108,5 @@ LumiBatch2GEOarchive <- function(x, file, ids=NULL, round.digits=5) {
 	cn[seq(3,ncol(res),by=2)] <- "Detection Pval"
 	colnames(res) <- cn
 	
-	# write table
-	write.table(res, file, quote=FALSE, sep="\t", row.names=FALSE, col.names=TRUE, na="null")
+	res
 }

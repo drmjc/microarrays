@@ -25,6 +25,7 @@ subset.MArrayLM <- function(x, subset, select, drop=FALSE, ...) {
 		r <- TRUE
 	}
 	else if( is.character(subset) ) {
+		if(is.null(x$genes)) stop("lmFit has empty genes slot. hint: `x$genes <- data.frame(ID=rownames(coef(x)))`")
 		if( is.data.frame(x$genes) )
 			r <- x$genes$ID %in% subset
 		else

@@ -106,7 +106,15 @@ barplot_lmFit <- function(
 
 	data <- subset(data, rownames(data) %in% probes, drop=FALSE)
 	# fit1 <- subset.MArrayLM(fit1, probes)
-	fit1 <- subset(fit1, probes) # use microarrays::subset.MArrayLM
+	if( inherits(fit1, "MArrayLM")) {
+		fit1 <- subset(fit1, probes) # use microarrays::subset.MArrayLM
+	}
+	else if( inherits(fit1, "matrix")) {
+		fit1 <- subset(fit1, rownames(fit1) %in% probes)
+	}
+	else {
+		stop("unsupported type for fit1")
+	}
 	
 	# if( is.matrix.like(fit1$coef) )
 	# 	fit1 <- fit1[probes, 1:ncol(fit1)] # should work even if fit is an lmFit, or a data.frame
@@ -116,9 +124,8 @@ barplot_lmFit <- function(
 	# try(fit2 <- fit2[probes, ], silent=TRUE)
 	# if( !is.null(fit2) ) fit2 <- subset.MArrayLM(fit2, probes)
 	if( !is.null(fit2) ) fit2 <- subset(fit2, probes) # use microarrays::subset.MArrayLM
-	
-	try(calls <- subset(calls, rownames(calls) %in% probes, drop=FALSE), silent=TRUE)
-	try(tt <- tt[match(probes, tt$ID), ], silent=TRUE)
+	if( !is.null(calls) ) calls <- subset(calls, rownames(calls) %in% probes, drop=FALSE)
+	if( !is.null(tt) ) tt <- tt[match(probes, tt$ID), ]
 	
 	main <- c("normalised data", "model coefficients", "contrast coefficients")
 	ylab <- c("Expression level (log2)", "logFC (+/- SE)", "logFC (+/- SE)")

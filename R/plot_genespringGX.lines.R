@@ -17,6 +17,9 @@
 #' @return none.
 #' @author Mark Cowley
 #' @export
+#' @examples
+#' m <- matrix(rnorm(1000*10),1000,10)
+#' plot_genespringGX_lines(m)
 plot_genespringGX_lines <- function(data, row.centre=c("median", "mean", "none"), colour.by=1, symmetrical=TRUE,
 	main="", xlab="", ylab="Expression Ratio (log2)", las=2, colour.by.line=TRUE, lwd=0.5, bg.col="black", alpha=0.2, ...) {
 	opar <- par(no.readonly=TRUE)

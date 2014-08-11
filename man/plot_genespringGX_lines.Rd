@@ -50,6 +50,10 @@
 \description{
   Perform a GeneSpring GX 7.3.1 line plot
 }
+\examples{
+m <- matrix(rnorm(1000*10),1000,10)
+plot_genespringGX_lines(m)
+}
 \author{
   Mark Cowley
 }
